@@ -18,9 +18,9 @@ export default function ChoiceButton(props: ChoiceButtonProps) {
         "text-left text-[11px] md:text-[14px] p-2 border rounded-xl",
         {
             "bg-green-500 text-white": props.showAnswer && isCorrect,
-            "bg-red-500 text-white": props.showAnswer && props.selectedIdx === props.idx && !isCorrect,
-            "bg-black text-white": !props.showAnswer && props.selectedIdx === props.idx,
-            "bg-white": props.selectedIdx !== props.idx && (!props.showAnswer || !isCorrect),
+            "bg-red-500 text-white": props.showAnswer && isSelected && !isCorrect,
+            "bg-black text-white": !props.showAnswer && isSelected,
+            "bg-white": !isSelected && (!props.showAnswer || !isCorrect),
         }
     );
 

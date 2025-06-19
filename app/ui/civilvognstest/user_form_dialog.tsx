@@ -32,7 +32,7 @@ export default function UserFormDialog({
     };
 
     return (
-        <Dialog open={open} onOpenChange={() => { }} /* prevents manual close */>
+        <Dialog open={open} /* prevents manual close */>
             <DialogContent className="p-2 max-w-sm sm:max-w-md border-none bg-transparent shadow-none [&>button]:hidden">
                 <Card className="bg-red-100 shadow-xl rounded-xl w-full border-none">
                     <DialogHeader className=" flex items-center text-center pt-6">

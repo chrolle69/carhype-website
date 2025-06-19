@@ -9,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import clsx from "clsx";
 import ChoiceButton from "./choice_button";
 
 export default function QuestionCard(props: { setIsDone: (arg0: boolean) => void; }) {
