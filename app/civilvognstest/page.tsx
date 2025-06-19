@@ -10,7 +10,7 @@ export default function CivilvognsTestPage() {
     return (
         <>
             <QuestionCard setIsDone={setIsDone} />
-            <UserFormDialog open={isDone} onOpenChange={setIsDone} />
+            <UserFormDialog open={isDone} />
         </>
     );
 }

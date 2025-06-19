@@ -13,10 +13,8 @@ import { useRouter } from "next/navigation";
 
 export default function UserFormDialog({
     open,
-    onOpenChange,
 }: {
     open: boolean;
-    onOpenChange: (value: boolean) => void;
 }) {
     const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");

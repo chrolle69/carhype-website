@@ -47,7 +47,7 @@ export default function QuestionCard(props: { setIsDone: (arg0: boolean) => void
 
         {/* Question + options container - right side on md+ */}
         <div className="w-full md:w-1/2 flex flex-col justify-center">
-          <CardHeader className="mb-4 p-0">
+          <CardHeader className="m-4 p-0">
             <CardTitle>{questions[currentQuestion].question}</CardTitle>
           </CardHeader>
 
