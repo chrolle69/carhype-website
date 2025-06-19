@@ -3,7 +3,7 @@ export const questions = [
   {
     question: 'Hvilket MC mærke er dette civile køretøj?',
     options: [
-      'BMV',
+      'BMW',
       'Ducati',
       'Yamaha',
       'Kawsasaki'],

@@ -10,11 +10,14 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import ChoiceButton from "./choice_button";
+import ScoreBar from "./score_bar";
 
 export default function QuestionCard(props: { setIsDone: (arg0: boolean) => void; }) {
   const [currentQuestion, setCurrentQuestion] = React.useState(0);
   const [selectedIdx, setSelectedIdx] = React.useState<number | null>(null);
   const [showAnswer, setShowAnswer] = React.useState(false);
+  const [correctCount, setCorrectCount] = React.useState(0);
+  const [showScore, setShowScore] = React.useState(false);
 
   const handleButtonClick = () => {
     if (!showAnswer) {
@@ -23,8 +26,11 @@ export default function QuestionCard(props: { setIsDone: (arg0: boolean) => void
     } else {
       // Second click: go to next question
       if (currentQuestion >= questions.length - 1) {
-        props.setIsDone(true);
+        setShowScore(true)
         return;
+      }
+      if (selectedIdx === questions[currentQuestion].correct) {
+        setCorrectCount((prev) => prev + 1);
       }
       setCurrentQuestion((prev) => prev + 1);
       setSelectedIdx(null);
@@ -34,49 +40,68 @@ export default function QuestionCard(props: { setIsDone: (arg0: boolean) => void
 
   return (
     <Card className="w-full max-w-2xs md:max-w-3xl mx-auto my-8 shadow-lg bg-orange-50">
-      <div className="flex flex-col md:flex-row md:gap-6 p-4 min-h-[400px]">
+      {showScore ?
+        <div className="flex items-center flex-col gap-10">
 
-        <div className="w-full md:w-1/2 max-h-58 md:max-h-120 overflow-hidden rounded-2xl">
-          <img
-            src={questions[currentQuestion].image}
-            alt="Question Image"
-            className="w-full h-full object-cover object-top rounded-xl"
-          />
-        </div>
-
-        {/* Question + options container - right side on md+ */}
-        <div className="w-full md:w-1/2 flex flex-col justify-center">
-          <CardHeader className="m-4 p-0">
-            <CardTitle>{questions[currentQuestion].question}</CardTitle>
+          <CardHeader className="flex justify-center m-4 p-0 w-full">
+            <CardTitle className="text-xl font-bold">Din score!</CardTitle>
           </CardHeader>
+          <CardContent className="w-2/3">
+            <ScoreBar current={correctCount} total={questions.length} />
+          </CardContent >
+          <button className="rounded-xl bg-black text-white px-4 py-2 max-w-[150px] shadow-xl hover:bg-gray-600" onClick={() => props.setIsDone(true)}>
+            Færdig
+          </button>
+          <CardFooter>
 
-          <CardContent className="p-0">
-            <div className="flex flex-col gap-2">
-              {questions[currentQuestion].options.map((option, idx) => (
-                <ChoiceButton
-                  option={option}
-                  key={idx}
-                  idx={idx}
-                  selectedIdx={selectedIdx}
-                  correctIdx={questions[currentQuestion].correct}
-                  showAnswer={showAnswer}
-                  onClick={setSelectedIdx}
-                />
-              ))}
-            </div>
-          </CardContent>
+          </CardFooter>
         </div>
-      </div>
+        :
+        <div>
+          <div className="flex flex-col md:flex-row md:gap-6 p-4 min-h-[400px]">
+            <div className="w-full md:w-1/2 max-h-58 md:max-h-120 overflow-hidden rounded-2xl">
+              <img
+                src={questions[currentQuestion].image}
+                alt="Question Image"
+                className="w-full h-full object-cover object-top rounded-xl"
+              />
+            </div>
 
-      <CardFooter className="flex justify-center">
-        <button
-          onClick={handleButtonClick}
-          className="rounded-xl bg-black text-white px-4 py-2 disabled:opacity-50"
-          disabled={selectedIdx === null}
-        >
-          {showAnswer ? "Næste" : "Bekræft"}
-        </button>
-      </CardFooter>
+            {/* Question + options container - right side on md+ */}
+            <div className="w-full md:w-1/2 flex flex-col justify-center">
+              <CardHeader className="m-4 p-0">
+                <CardTitle>{questions[currentQuestion].question}</CardTitle>
+              </CardHeader>
+
+              <CardContent className="p-0">
+                <div className="flex flex-col gap-2">
+                  {questions[currentQuestion].options.map((option, idx) => (
+                    <ChoiceButton
+                      option={option}
+                      key={idx}
+                      idx={idx}
+                      selectedIdx={selectedIdx}
+                      correctIdx={questions[currentQuestion].correct}
+                      showAnswer={showAnswer}
+                      onClick={setSelectedIdx}
+                    />
+                  ))}
+                </div>
+              </CardContent>
+            </div>
+          </div>
+
+          <CardFooter className="flex justify-center">
+            <button
+              onClick={handleButtonClick}
+              className="rounded-xl bg-black text-white px-4 py-2 disabled:opacity-50"
+              disabled={selectedIdx === null}
+            >
+              {showAnswer ? "Næste" : "Bekræft"}
+            </button>
+          </CardFooter>
+        </div>
+      }
     </Card>
 
   );
