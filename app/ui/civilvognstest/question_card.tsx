@@ -23,10 +23,9 @@ export default function QuestionCard(props: { setIsDone: (arg0: boolean) => void
     } else {
       // Second click: go to next question
       if (currentQuestion >= questions.length - 1) {
-        alert("Du har gennemført alle spørgsmål!");
+        props.setIsDone(true);
         return;
       }
-      props.setIsDone(true);
       setCurrentQuestion((prev) => prev + 1);
       setSelectedIdx(null);
       setShowAnswer(false);
