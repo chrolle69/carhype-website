@@ -52,6 +52,7 @@ export default function UserFormDialog({
                 setError(data.message || "Noget gik galt.");
             }
         } catch (err) {
+            console.log(err)
             setError("Der skete en fejl ved tilmelding.");
         } finally {
             setIsLoading(false);
@@ -117,8 +118,8 @@ export default function UserFormDialog({
                                         type="submit"
                                         disabled={isLoading}
                                         className={`w-full py-2 rounded text-white transition ${isLoading
-                                                ? "bg-gray-500 cursor-not-allowed"
-                                                : "bg-black hover:bg-gray-800"
+                                            ? "bg-gray-500 cursor-not-allowed"
+                                            : "bg-black hover:bg-gray-800"
                                             }`}
                                     >
                                         {isLoading ? "Sender..." : "Tilmeld"}
