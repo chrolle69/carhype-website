@@ -26,7 +26,7 @@ export default function ChoiceButton(props: ChoiceButtonProps) {
 
 
     return (
-        <button className={buttonClasses} onClick={() => props.onClick(props.idx)}>
+        <button disabled={props.showAnswer} className={buttonClasses} onClick={() => props.onClick(props.idx)}>
             {props.option}
         </button>
     );

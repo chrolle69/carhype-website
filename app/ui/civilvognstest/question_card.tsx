@@ -25,12 +25,12 @@ export default function QuestionCard(props: { setIsDone: (arg0: boolean) => void
       setShowAnswer(true);
     } else {
       // Second click: go to next question
+      if (selectedIdx === questions[currentQuestion].correct) {
+        setCorrectCount((prev) => prev + 1);
+      }
       if (currentQuestion >= questions.length - 1) {
         setShowScore(true)
         return;
-      }
-      if (selectedIdx === questions[currentQuestion].correct) {
-        setCorrectCount((prev) => prev + 1);
       }
       setCurrentQuestion((prev) => prev + 1);
       setSelectedIdx(null);
