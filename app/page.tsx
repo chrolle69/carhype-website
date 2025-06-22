@@ -9,7 +9,7 @@ export default function Home() {
       {/* Header */}
       <header className="flex justify-center text-[36px] sm:text-[56px] mb-12">
         <h1 className="">CAR</h1>
-        <h1 className="text-orange-400">HYPE</h1>
+        <h1 className="font-[800]">HYPE</h1>
       </header>
 
       {/* Main Content */}
@@ -48,33 +48,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="flex gap-6 flex-wrap items-center justify-center mt-12">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image src="/file.svg" alt="File icon" width={16} height={16} />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image src="/window.svg" alt="Window icon" width={16} height={16} />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image src="/globe.svg" alt="Globe icon" width={16} height={16} />
-          Go to nextjs.org →
-        </a>
+
       </footer>
     </div>
   );

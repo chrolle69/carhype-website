@@ -4,13 +4,13 @@ import React from "react";
 import clsx from "clsx";
 
 type Props = {
-    current: number;
+    correctCount: number;
     total: number;
     height?: string; // optional for custom height, e.g., "h-4"
 };
 
-export default function ScoreBar({ current, total, height = "h-6" }: Props) {
-    const percent = Math.min((current / total) * 100, 100);
+export default function ScoreBar({ correctCount, total, height = "h-6" }: Props) {
+    const percent = Math.min((correctCount / total) * 100, 100);
 
     return (
         <div className={clsx("w-full bg-gray-200 rounded-full relative overflow-hidden", height)}>
@@ -19,7 +19,7 @@ export default function ScoreBar({ current, total, height = "h-6" }: Props) {
                 style={{ width: `${percent}%`, height: "100%" }}
             />
             <div className="relative z-10 w-full text-center font-medium text-sm text-black">
-                {current} / {total}
+                {correctCount} / {total}
             </div>
         </div>
     );
