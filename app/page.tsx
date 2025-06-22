@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { FacebookIcon, YoutubeIcon, TiktokIcon, InstagramIcon } from './ui/home/socialicons';
 import Link from 'next/link';
 
