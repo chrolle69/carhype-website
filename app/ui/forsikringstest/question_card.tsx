@@ -30,6 +30,7 @@ export default function QuestionCard(props: { setIsDone: (arg0: boolean) => void
 
     const handleChoice = (selectedText: string, nextId: QuestionId | null) => {
         setAnswers(prev => ({ ...prev, [currentQuestionId]: selectedText }));
+        console.log(answers)
         if (nextId) {
             setHistory(prev => [...prev, nextId]);
             setCurrentQuestionId(nextId);

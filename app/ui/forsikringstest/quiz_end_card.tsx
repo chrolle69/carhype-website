@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import UserPartnerForm from "./user_partner_form";
 import { QuestionId } from "@/app/lib/forsikringstest_questions";
 

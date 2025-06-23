@@ -3,7 +3,6 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { QuestionId } from "@/app/lib/forsikringstest_questions";
-import test from "node:test";
 
 export default function UserPartnerForm(props: { partner: QuestionId }) {
     const [name, setName] = React.useState("");
