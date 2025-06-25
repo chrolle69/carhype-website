@@ -29,5 +29,4 @@ jobs:
         run: pnpm build
 
       - name: Run Lint
-        run: pnpm lint || true
-i
+        run: "pnpm lint || true"
