@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ success: true, message: "Tak for din tilmelding!" });
-
+    //dummy comment
   } catch (error) {
     return NextResponse.json(
       { success: false, message: (error as Error).message || "Noget gik galt" },
