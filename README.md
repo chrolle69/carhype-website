@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# CarHype Website
+
+## Overview
+
+This project is a contract-based development of CarHype’s new website. It features a simple, user-friendly landing page with two interactive quizzes designed to boost user engagement and collect valuable data. CarHype collaborates with insurance companies to help users find the most suitable insurance provider.
+
+The site is built with modern technologies to ensure performance, scalability, and ease of maintenance.
+
+---
+
+## Technologies Used
+
+- **Next.js** – React framework for server-side rendering and static site generation  
+- **Tailwind CSS** – Utility-first CSS framework for styling  
+- **Supabase** – Backend as a Service (database, authentication, storage)  
+- **TypeScript** – Type-safe JavaScript superset for better code quality  
+- **Git** – Version control  
+- **Vercel** – Deployment and hosting platform
+
+---
+
+## Features
+
+- Responsive landing page  
+- Two quizzes for user engagement and data collection  
+- Integration with Supabase for data storage  
+- Clean and maintainable codebase using TypeScript  
+- Deployed and hosted on Vercel for seamless updates and scalability
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
+- Node.js (version 20 or higher recommended - tested with Node 22)  
+- pnpm  
+- Supabase account and project setup with credentials configured in environment variables
+
+### Installation
+
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/chrolle69/carhype-website.git
+   cd carhype-website```
+2. Install dependencies:
+   ```bash
+   pnpm install
+4. Setup environment variables: <br/>
+   Create a .env file in the root of the project.
+   Then, go to your Supabase project dashboard and navigate to:
+      Project Settings → API & Database
+    There you’ll find all the environment variables needed.
+
+    Copy and paste the values into your ```.env``` file like this:
+   ```.env
+   NEXT_PUBLIC_SUPABASE_URL="https://your-supabase-project-url.supabase.co"
+   NEXT_PUBLIC_SUPABASE_ANON_KEY="your-anon-public-key"
+   SUPABASE_SERVICE_ROLE_KEY="your-service-role-secret"
+   POSTGRES_URL="your-postgres-connection-string"
+   POSTGRES_PASSWORD="your-postgres-password"
+   POSTGRES_USER="your-postgres-username"
+   POSTGRES_HOST="your-postgres-host"
+   POSTGRES_DATABASE="your-postgres-database-name"
+   SUPABASE_JWT_SECRET="your-jwt-secret"
+
+ ### Running Locally
 ```bash
-npm run dev
-# or
-yarn dev
-# or
 pnpm dev
-# or
-bun dev
 ```
+Then open http://localhost:3000 in your browser.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment
+The project is deployed on [Vercel](https://vercel.com/).
+Commits pushed to the ```main``` branch will automatically trigger a new deployment.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+To set up environment variables in Vercel:
+- Go to your Vercel project settings → Environment Variables
+- Paste the same keys from your ```.env```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Contribution
+This is a contract project, so it's not open for general contribution, but feedback and suggestions are always welcome.
 
-## Learn More
+## License
+This project is currently not licensed for public or commercial use.
 
-To learn more about Next.js, take a look at the following resources:
+Please contact the author for permissions or collaboration inquiries.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contact
+For questions or collaboration, contact Lucas at guldbrandsen102030@gmail.com
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+   
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
