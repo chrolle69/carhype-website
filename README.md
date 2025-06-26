@@ -42,7 +42,7 @@ The site is built with modern technologies to ensure performance, scalability, a
 1. Clone the repository:  
    ```bash
    git clone https://github.com/chrolle69/carhype-website.git
-   cd carhype-website```
+   cd carhype-website
 2. Install dependencies:
    ```bash
    pnpm install
