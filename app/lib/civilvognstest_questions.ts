@@ -74,7 +74,7 @@ export const questions = [
     question: 'Hvad synliggøre denne varevogn?',
     options: [
       'At vagtfirmaer kan forveksles med politiet',
-      'Ambulance of politi arbejder tæt sammen',
+      'Ambulance og politi arbejder tæt sammen',
       'Forskellen på nye og gamle pakeringsregler',
       'At politiet råder over biler med gule nummerplader'],
     correct: 3,
@@ -103,7 +103,7 @@ export const questions = [
   {
     question: 'Hvordan undgår civile politibiler en P-bøde?',
     options: [
-      'Ved at hænge en banmse i bakspejlet',
+      'Ved at hænge en bamse i bakspejlet',
       'Med en slikkepind i forruden',
       'At holde baggageklappen åben',
       'De kan ikke undgå en P-bøde'],
