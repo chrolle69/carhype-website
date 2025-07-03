@@ -13,7 +13,7 @@ export default function ScoreBar({ correctCount, total, height = "h-6" }: Props)
     const percent = Math.min((correctCount / total) * 100, 100);
 
     return (
-        <div className={clsx("w-full bg-gray-200 rounded-full relative overflow-hidden", height)}>
+        <div className={clsx("flex justify-self-center w-full md:w-4/5 bg-gray-200 rounded-full relative overflow-hidden", height)}>
             <div
                 className="absolute top-0 left-0 bg-green-500 transition-all duration-500"
                 style={{ width: `${percent}%`, height: "100%" }}

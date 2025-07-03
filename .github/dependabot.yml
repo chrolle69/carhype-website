@@ -8,4 +8,5 @@ updates:
   - package-ecosystem: "npm"
     directory: "/" # Looks for package.json and pnpm-lock.yaml in root
     schedule:
-      interval: "daily"
+      interval: "daily" 
+    target-branch: "preview"
