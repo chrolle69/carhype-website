@@ -1,7 +1,6 @@
 'use client';
 
 import React from "react";
-import { useRef } from "react"
 import { useRouter } from "next/navigation";
 import { QuestionId } from "@/app/lib/forsikringstest_questions";
 
