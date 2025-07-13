@@ -1,6 +1,7 @@
 'use client';
 
 import React from "react";
+import { useRef } from "react"
 import { useRouter } from "next/navigation";
 import { QuestionId } from "@/app/lib/forsikringstest_questions";
 
@@ -15,14 +16,22 @@ export default function UserPartnerForm(props: { partner: QuestionId }) {
     const [error, setError] = React.useState("");
     const [isSubmitted, setIsSubmitted] = React.useState(false);
     const [isLoading, setIsLoading] = React.useState(false);
+    const [isChecked, setIsChecked] = React.useState(false);
+    const checkHandler = () => {
+        setIsChecked(!isChecked);
+    }
 
     const router = useRouter();
-
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setError("");
         setMessage("");
         setIsLoading(true);
+        if (!isChecked) {
+            setError("mangler at accepter betingelserne")
+            setIsLoading(false);
+            return
+        }
 
         const formData = new FormData(e.currentTarget);
         const body = {
@@ -166,6 +175,12 @@ export default function UserPartnerForm(props: { partner: QuestionId }) {
                         {error && (
                             <p className="text-red-600 font-semibold">{error}</p>
                         )}
+
+
+                        <input className="w-4 h-4 mb-0" type="checkbox" name="checkbox-user-consent" checked={isChecked} onChange={checkHandler} />
+                        <p className="text-xs font-sans">
+                            Jeg giver samtykke til, at mine oplysninger må behandles og videregives til mit forsikringsselskab i forbindelse med sagsbehandling. Jeg er informeret om, at samtykket kan trækkes tilbage når som helst.
+                        </p>
 
                         <button
                             type="submit"
