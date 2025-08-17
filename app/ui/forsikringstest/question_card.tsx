@@ -15,9 +15,9 @@ import ChoiceButton from "./choice_button";
 
 export default function QuestionCard(props: { setIsDone: (arg0: boolean) => void, setPartner: (arg0: QuestionId) => void }) {
     const [answers, setAnswers] = React.useState<{ [questionId: string]: string }>({});
-    const [currentQuestionId, setCurrentQuestionId] = React.useState<QuestionId>('start');
+    const [currentQuestionId, setCurrentQuestionId] = React.useState<QuestionId>('rki');
     const currentQuestion = questions[currentQuestionId];
-    const [history, setHistory] = React.useState<QuestionId[]>(['start']);
+    const [history, setHistory] = React.useState<QuestionId[]>(['rki']);
 
     const goBack = () => {
         if (history.length > 1) {

@@ -1,11 +1,14 @@
 export type QuestionId =
-    | 'start'
     | 'rki'
-    | 'products'
+    | 'duration'
+    | 'whenChanged'
+    | 'carInsurance'
+    | 'livingCondition'
+    | 'damages'
     | 'monthlyPrice'
     | 'importance'
-    | 'possibleDelivery'
-    | 'damages'
+    | 'currentInsurance'
+    | 'age1' | 'age2' | 'age3'
     | 'partnerS'
     | 'partnerL'
     | 'declined'
@@ -28,39 +31,71 @@ export interface Question {
 }
 
 export const questions: Record<QuestionId, Question> = {
-    start: {
-        id: 'start',
-        type: 'question',
-        question: 'Hvor længe har du været i dit nuværende forsikringsselskab?',
-        options: [
-            { text: 'Under 9 måneder', next: 'checkup' },
-            { text: 'Over 9 måneder', next: 'rki' },
-        ],
-    },
     rki: {
         id: 'rki',
         type: 'question',
         question: 'Er du registreret i RKI?',
         options: [
-            { text: 'Nej', next: 'products' },
+            { text: 'Nej', next: 'duration' },
             { text: 'Ja', next: 'declined' },
         ],
     },
-    products: {
-        id: 'products',
+    duration: {
+        id: 'duration',
         type: 'question',
-        question: 'Hvor mange forsikringsprodukter har du? (f.eks. bil, indbo, rejse, ulykke, ervherv mv.)',
+        question: 'Hvor længe har du været i dit nuværende forsikringsselskab?',
         options: [
-            { text: '1 produkt', next: 'partnerS' },
-            { text: '2 eller flere', next: 'monthlyPrice' },
+            { text: 'Under 9 måneder', next: 'whenChanged' },
+            { text: 'Over 9 måneder', next: 'carInsurance' },
+        ],
+    },
+    whenChanged: {
+        id: 'whenChanged',
+        type: 'question',
+        question: 'Hvornår skiftede du forsikringsselskab?',
+        options: [
+            { text: '0-1 måned (Jeg har ikke nået at betale min første regning endnu)', next: 'carInsurance' },
+            { text: '2-5 måneder', next: 'carInsurance' },
+            { text: '2-6 måneder', next: 'carInsurance' },
+        ],
+    },
+
+    carInsurance: {
+        id: 'carInsurance',
+        type: 'question',
+        question: 'Har du en bilforsikring?',
+        options: [
+            { text: 'Ja', next: 'livingCondition' },
+            { text: 'Nej', next: 'livingCondition' },
+        ],
+    },
+    livingCondition: {
+        id: 'livingCondition',
+        type: 'question',
+        question: 'Hvordan bor du?',
+        options: [
+            { text: 'Hus', next: 'damages' },
+            { text: 'Lejlighed', next: 'damages' },
+            { text: 'Andet', next: 'damages' },
+        ],
+    },
+
+    damages: {
+        id: 'damages',
+        type: 'question',
+        question: 'Hvor mange skader har du haft de sidste 3 år?',
+        options: [
+            { text: '0', next: 'monthlyPrice' },
+            { text: '1-2', next: 'monthlyPrice' },
+            { text: '3+', next: 'monthlyPrice' },
         ],
     },
     monthlyPrice: {
         id: 'monthlyPrice',
         type: 'question',
-        question: 'Betaler du samlet mere end 1.000 kr. om måneden for dine forsikringer?',
+        question: 'Hvor meget betaler du månedligt?',
         options: [
-            { text: 'Under 1.000 kr.', next: 'partnerS' },
+            { text: 'Under 1.000 kr.', next: 'importance' },
             { text: 'Over 1.000 kr.', next: 'importance' },
         ],
     },
@@ -69,27 +104,52 @@ export const questions: Record<QuestionId, Question> = {
         type: 'question',
         question: 'Hvad er vigtigst for dig?',
         options: [
-            { text: 'Billigere pris', next: 'possibleDelivery' },
-            { text: 'Bedre dækning', next: 'possibleDelivery' },
+            { text: 'Pris', next: 'currentInsurance' },
+            { text: 'Dækning', next: 'currentInsurance' },
         ],
     },
-    possibleDelivery: {
-        id: 'possibleDelivery',
+    currentInsurance: {
+        id: 'currentInsurance',
         type: 'question',
-        question: 'Hvis vi kan give dig hvad du prioriterer er du så villig til at skifte forsikring?',
+        question: 'Hvilket forsikringsselskab har du i dag?',
         options: [
-            { text: 'Nej', next: 'partnerS' },
-            { text: 'Ja', next: 'damages' },
+            { text: 'IF', next: 'age1' },
+            { text: 'Topdanmark', next: 'age1' },
+
+            { text: 'Alm. brand', next: 'age2' },
+
+            { text: 'Tryg', next: 'age3' },
+            { text: 'Forsia', next: 'age3' },
+            { text: 'Øvrige', next: 'age3' },
+
+
         ],
     },
-    damages: {
-        id: 'damages',
+    age1: {
+        id: 'age1',
         type: 'question',
-        question: 'Hvor mange skader har du haft pr. forsikringsprodukt de sidste 3 år?',
+        question: 'Hvor gammel er du?',
         options: [
-            { text: '0 skader', next: 'partnerL' },
-            { text: '1-2 skader', next: 'partnerL' },
-            { text: '3 eller flere', next: 'partnerS' },
+            { text: '18-22', next: 'partnerS' },
+            { text: '23+', next: 'partnerS' },
+        ],
+    },
+    age2: {
+        id: 'age2',
+        type: 'question',
+        question: 'Hvor gammel er du?',
+        options: [
+            { text: '18-22', next: 'partnerL' },
+            { text: '23+', next: 'partnerL' },
+        ],
+    },
+    age3: {
+        id: 'age3',
+        type: 'question',
+        question: 'Hvor gammel er du?',
+        options: [
+            { text: '18-22', next: 'partnerS' },
+            { text: '23+', next: 'partnerL' },
         ],
     },
 
