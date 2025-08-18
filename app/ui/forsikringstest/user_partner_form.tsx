@@ -4,7 +4,10 @@ import React from "react";
 import { useRouter } from "next/navigation";
 import { QuestionId } from "@/app/lib/forsikringstest_questions";
 
-export default function UserPartnerForm(props: { partner: QuestionId }) {
+export default function UserPartnerForm(props: {
+    partner: QuestionId
+    answers: { [question: string]: string }
+}) {
     const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [phoneNo, setPhoneNo] = React.useState("");
@@ -41,6 +44,7 @@ export default function UserPartnerForm(props: { partner: QuestionId }) {
             plateNo: formData.get("plateNo"),
             additional: formData.get("additional"),
             partner: props.partner, // Include the partner information
+            answers: props.answers
         };
 
         try {
@@ -55,7 +59,7 @@ export default function UserPartnerForm(props: { partner: QuestionId }) {
                 setIsSubmitted(true);
                 setMessage(data.message || "du er nu oprettet og vil blive kontaktet snarest!");
             } else {
-                setError(data.message || "Noget gik galt.");
+                setError("Noget gik galt prøv igen senere.");
             }
         } catch (err) {
             console.log(err);
@@ -178,7 +182,7 @@ export default function UserPartnerForm(props: { partner: QuestionId }) {
 
                         <input className="w-4 h-4 mb-0" type="checkbox" name="checkbox-user-consent" checked={isChecked} onChange={checkHandler} />
                         <p className="text-xs font-sans">
-                            Jeg giver samtykke til, at mine oplysninger må behandles og videregives til mit forsikringsselskab i forbindelse med sagsbehandling. Jeg er informeret om, at samtykket kan trækkes tilbage når som helst.
+                            Jeg giver samtykke til, at mine oplysninger må behandles og videregives i forbindelse med sagsbehandling. Jeg er informeret om, at samtykket kan trækkes tilbage når som helst.
                         </p>
 
                         <button
