@@ -21,13 +21,15 @@ export interface Option {
 
 export interface Question {
     id: QuestionId;
-    type: 'question' | 'result';
-    question?: string;          // present only for 'question' type
-    options?: Option[];         // present only for 'question' type
-    title?: string;             // present only for 'result' type
-    message?: string;           // present only for 'result' type
-    buttonText?: string;        // present only for 'result' type
-    next?: QuestionId | null;   // next step for results
+    type: 'question' | 'questionTextInput' | 'result';
+    question?: string;            // present only for 'question' type
+    options?: Option[];           // present only for 'question' type
+    textInputOption?: string  // present only for 'questionTextInput' type
+    textInputNext?: QuestionId;  // present only for 'questionTextInput' type
+    title?: string;               // present only for 'result' type
+    message?: string;             // present only for 'result' type
+    buttonText?: string;          // present only for 'result' type
+    next?: QuestionId | null;    // next step for results
 }
 
 export const questions: Record<QuestionId, Question> = {
@@ -110,7 +112,7 @@ export const questions: Record<QuestionId, Question> = {
     },
     currentInsurance: {
         id: 'currentInsurance',
-        type: 'question',
+        type: 'questionTextInput',
         question: 'Hvilket forsikringsselskab har du i dag?',
         options: [
             { text: 'IF', next: 'age1' },
@@ -120,10 +122,10 @@ export const questions: Record<QuestionId, Question> = {
 
             { text: 'Tryg', next: 'age3' },
             { text: 'Forsia', next: 'age3' },
-            { text: 'Øvrige', next: 'age3' },
-
-
         ],
+        textInputOption: 'Øvrige',
+        textInputNext: 'age3'
+        
     },
     age1: {
         id: 'age1',
