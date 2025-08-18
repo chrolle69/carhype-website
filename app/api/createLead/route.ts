@@ -27,13 +27,16 @@ export async function POST(request: NextRequest) {
       SELECT * FROM leads WHERE email = ${email}
     `;
 
+    const answerJson = answers ? sql.json(answers) : null
+
+
     if (existing.length === 0) {
       // No existing entry — insert new
       await sql`
         INSERT INTO leads (
           lead_id, email, name, phone, address, plate, additional, partner, answers, submitted_at
         ) VALUES (
-          ${uuidv4()}, ${email}, ${name}, ${phoneNo ?? null}, ${address ?? null}, ${plateNo ?? null}, ${additional ?? null}, ${partner ?? null}, ${answers ?? null}, NOW()
+          ${uuidv4()}, ${email}, ${name}, ${phoneNo ?? null}, ${address ?? null}, ${plateNo ?? null}, ${additional ?? null}, ${partner ?? null}, ${answerJson ?? null}, NOW()
         )
       `;
     } else {
@@ -48,7 +51,7 @@ export async function POST(request: NextRequest) {
           plate = ${plateNo ?? existingData.plate},
           additional = ${additional ?? existingData.additional},
           partner = ${partner ?? existingData.partner},
-          answers = ${answers ?? existingData.answers},
+          answers = ${answerJson ?? existingData.answers},
           submitted_at = NOW()
         WHERE email = ${email}
       `;
