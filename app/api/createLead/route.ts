@@ -13,25 +13,30 @@ const FormSchema = z.object({
   plateNo: z.string().max(10).optional(),
   additional: z.string().max(500).optional(),
   partner: z.string().optional(),
+  answers: z.record(z.string(), z.string()).optional(), // <-- answers as object
+
 });
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { name, email, phoneNo, address, plateNo, additional, partner } = FormSchema.parse(body);
+    const { name, email, phoneNo, address, plateNo, additional, partner, answers } = FormSchema.parse(body);
 
     // Check if user exists by email
     const existing = await sql`
       SELECT * FROM leads WHERE email = ${email}
     `;
 
+    const answerJson = answers ? sql.json(answers) : null
+
+
     if (existing.length === 0) {
       // No existing entry — insert new
       await sql`
         INSERT INTO leads (
-          lead_id, email, name, phone, address, plate, additional, partner, submitted_at
+          lead_id, email, name, phone, address, plate, additional, partner, answers, submitted_at
         ) VALUES (
-          ${uuidv4()}, ${email}, ${name}, ${phoneNo ?? null}, ${address ?? null}, ${plateNo ?? null}, ${additional ?? null}, ${partner ?? null}, NOW()
+          ${uuidv4()}, ${email}, ${name}, ${phoneNo ?? null}, ${address ?? null}, ${plateNo ?? null}, ${additional ?? null}, ${partner ?? null}, ${answerJson ?? null}, NOW()
         )
       `;
     } else {
@@ -46,6 +51,7 @@ export async function POST(request: NextRequest) {
           plate = ${plateNo ?? existingData.plate},
           additional = ${additional ?? existingData.additional},
           partner = ${partner ?? existingData.partner},
+          answers = ${answerJson ?? existingData.answers},
           submitted_at = NOW()
         WHERE email = ${email}
       `;

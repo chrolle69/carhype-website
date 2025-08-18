@@ -7,14 +7,16 @@ import { QuestionId } from "../lib/forsikringstest_questions";
 
 export default function CivilvognsTestPage() {
     const [isDone, setIsDone] = React.useState(false);
-    const [partner, setPartner] = React.useState<QuestionId>('start');
+    const [partner, setPartner] = React.useState<QuestionId>('rki');
+    const [answers, setAnswers] = React.useState<{ [question: string]: string }>({});
+
 
     return (
         <div>
             {isDone ?
-                <QuizEndCard partner={partner} />
+                <QuizEndCard partner={partner} answers={answers} />
                 :
-                <QuestionCard setPartner={setPartner} setIsDone={setIsDone} />}
+                <QuestionCard setPartner={setPartner} setIsDone={setIsDone} setAnswers={setAnswers} />}
         </div>
 
     );
