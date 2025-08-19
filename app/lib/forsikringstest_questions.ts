@@ -58,7 +58,7 @@ export const questions: Record<QuestionId, Question> = {
         options: [
             { text: '0-1 måned (Jeg har ikke nået at betale min første regning endnu)', next: 'carInsurance' },
             { text: '2-5 måneder', next: 'carInsurance' },
-            { text: '2-6 måneder', next: 'carInsurance' },
+            { text: '6-9 måneder', next: 'carInsurance' },
         ],
     },
 
@@ -125,7 +125,7 @@ export const questions: Record<QuestionId, Question> = {
         ],
         textInputOption: 'Øvrige',
         textInputNext: 'age3'
-        
+
     },
     age1: {
         id: 'age1',
