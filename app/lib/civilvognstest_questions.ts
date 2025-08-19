@@ -118,7 +118,7 @@ export const questions = [
       'Selvforsikret',
       'Via EU-samarbejde'],
     correct: 2,
-    image: '/',
+    image: '/imagesCivilvognstest/SPG_12.webp',
   },
 
 ];
