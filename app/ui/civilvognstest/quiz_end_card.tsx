@@ -27,7 +27,7 @@ export default function QuizEndCard({ correctCount }: { correctCount: number }) 
               Tag næste skridt
             </h2>
             <p className="text-sm text-center font-[family-name:var(--font-geist-sans)]">
-              Prøv vores <b>forsikringstest</b> for at se om du er berettiget til gode tilbud hos nogle af vores partnere
+              Prøv vores <b>forsikringstest</b> og se om du opfylder kravene til et godt tilbud i vores netværk.
             </p>
             <div className="flex flex-col justify-center items-center w-full gap-2  ">
               <Link href={"/forsikringstest"} className=" w-2/3  text-center md:text-[20px] font-medium  py-3 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition">

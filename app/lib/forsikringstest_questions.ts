@@ -159,8 +159,8 @@ export const questions: Record<QuestionId, Question> = {
     partnerS: {
         id: 'partnerS',
         type: 'result', // custom field so your UI knows it's not a question
-        title: 'Vi har fundet et tilbud til dig!',
-        message: 'Vi matcher dig med en af vores partnere baseret på dine svar.',
+        title: 'Du er en perfekt kandidat!',
+        message: 'Vi har en stærk løsning klar til dig i vores netværk.',
         buttonText: 'Kom i kontakt',
         next: null,
     },
@@ -168,7 +168,7 @@ export const questions: Record<QuestionId, Question> = {
         id: 'partnerL',
         type: 'result',
         title: 'Du er en perfekt kandidat!',
-        message: 'Vi har en stærk løsning klar til dig hos en af vores hovedpartnere.',
+        message: 'Vi har en stærk løsning klar til dig i vores netværk.',
         buttonText: 'Kom i kontakt',
         next: null,
     },

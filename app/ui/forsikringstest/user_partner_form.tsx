@@ -11,7 +11,7 @@ export default function UserPartnerForm(props: {
     const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [phoneNo, setPhoneNo] = React.useState("");
-    const [address, setAddress] = React.useState("");
+    const [zipcode, setZipcode] = React.useState("");
     const [plateNo, setPlateNo] = React.useState("");
     const [additional, setAdditional] = React.useState("");
     const [message, setMessage] = React.useState("");
@@ -40,7 +40,7 @@ export default function UserPartnerForm(props: {
             name: formData.get("name"),
             email: formData.get("email"),
             phoneNo: formData.get("phoneNo"),
-            address: formData.get("address"),
+            zipcode: formData.get("zipcode"),
             plateNo: formData.get("plateNo"),
             additional: formData.get("additional"),
             partner: props.partner, // Include the partner information
@@ -59,7 +59,7 @@ export default function UserPartnerForm(props: {
                 setIsSubmitted(true);
                 setMessage(data.message || "du er nu oprettet og vil blive kontaktet snarest!");
             } else {
-                setError("Noget gik galt prøv igen senere.");
+                setError(data.message || "Noget gik galt prøv igen senere.");
             }
         } catch (err) {
             console.log(err);
@@ -92,9 +92,22 @@ export default function UserPartnerForm(props: {
             ) : (
                 <>
                     <form onSubmit={handleSubmit} className="space-y-4 h-full">
+                        {/* name field */}
+                        <div>
+                            <label className="block text-sm font-medium">Navn*</label>
+                            <input
+                                name="name"
+                                type="text"
+                                value={name}
+                                onChange={(e) => setName(e.target.value)}
+                                required
+                                disabled={isLoading}
+                                className="w-full p-2 border rounded bg-white"
+                            />
+                        </div>
                         {/* email field */}
                         <div>
-                            <label className="block text-sm font-medium">Email</label>
+                            <label className="block text-sm font-medium">Email*</label>
                             <input
                                 name="email"
                                 type="email"
@@ -104,23 +117,10 @@ export default function UserPartnerForm(props: {
                                 disabled={isLoading}
                                 className="w-full p-2 border rounded bg-white"
                             />
-                            {/* name field */}
-                            <div>
-                                <label className="block text-sm font-medium">Navn</label>
-                                <input
-                                    name="name"
-                                    type="text"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
-                                    required
-                                    disabled={isLoading}
-                                    className="w-full p-2 border rounded bg-white"
-                                />
-                            </div>
                         </div>
                         {/* phoneNo field */}
                         <div>
-                            <label className="block text-sm font-medium">Telefonnummer</label>
+                            <label className="block text-sm font-medium">Telefonnummer*</label>
                             <input
                                 name="phoneNo"
                                 type="tel"
@@ -131,18 +131,18 @@ export default function UserPartnerForm(props: {
                                 className="w-full p-2 border rounded bg-white"
                             />
                         </div>
-                        {/* address field */}
+                        {/* zipcode field */}
                         <div>
-                            <label className="block text-sm font-medium">Addresse</label>
+                            <label className="block text-sm font-medium">Postnummer</label>
                             <input
                                 type="text"
-                                name="address"
-                                autoComplete="street-address"
-                                onChange={(e) => setAddress(e.target.value)}
-                                value={address}
-                                required
+                                name="zipcode"
+                                autoComplete="zipcode"
+                                onChange={(e) => setZipcode(e.target.value)}
+                                value={zipcode}
+                                pattern="\d{4}$"
+                                title="Indtast et gyldigt 4-cifret dansk postnummer"
                                 disabled={isLoading}
-                                placeholder="F.eks. Vesterbrogade 20, 1620 København"
                                 className="w-full p-2 border rounded bg-white"
                             />
                         </div>
@@ -152,13 +152,12 @@ export default function UserPartnerForm(props: {
                             <input
                                 name="plateNo"
                                 type="text"
-                                title="F.eks. AB12345"
+                                title="Indtast gyldig nummerplade på maks 10 tegn"
                                 onChange={(e) => setPlateNo(e.target.value)}
                                 value={plateNo}
                                 disabled={isLoading}
-                                maxLength={7}
+                                pattern="[A-Za-z0-9\- ]{1,10}"
                                 className="w-full p-2 border rounded bg-white"
-                                required
                             />
                         </div>
                         {/* Additional field */}
