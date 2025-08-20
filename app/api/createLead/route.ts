@@ -21,6 +21,12 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { name, email, phoneNo, zipcode, plateNo, additional, partner, answers } = FormSchema.parse(body);
+    console.log(name);
+    console.log(email);
+    console.log(phoneNo);
+    console.log(zipcode);
+    console.log(plateNo);
+    console.log(additional);
 
     // Check if user exists by email
     const existing = await sql`
@@ -47,7 +53,7 @@ export async function POST(request: NextRequest) {
         UPDATE leads SET
           name = ${name},
           phone = ${phoneNo ?? existingData.phone},
-          address = ${zipcode ?? existingData.address},
+          zipcode = ${zipcode ?? existingData.address},
           plate = ${plateNo ?? existingData.plate},
           additional = ${additional ?? existingData.additional},
           partner = ${partner ?? existingData.partner},

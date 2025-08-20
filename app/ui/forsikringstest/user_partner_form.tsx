@@ -40,7 +40,7 @@ export default function UserPartnerForm(props: {
             name: formData.get("name"),
             email: formData.get("email"),
             phoneNo: formData.get("phoneNo"),
-            address: formData.get("address"),
+            zipcode: formData.get("zipcode"),
             plateNo: formData.get("plateNo"),
             additional: formData.get("additional"),
             partner: props.partner, // Include the partner information
@@ -59,7 +59,7 @@ export default function UserPartnerForm(props: {
                 setIsSubmitted(true);
                 setMessage(data.message || "du er nu oprettet og vil blive kontaktet snarest!");
             } else {
-                setError("Noget gik galt prøv igen senere.");
+                setError(data.message || "Noget gik galt prøv igen senere.");
             }
         } catch (err) {
             console.log(err);
