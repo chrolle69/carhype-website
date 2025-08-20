@@ -21,12 +21,6 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { name, email, phoneNo, zipcode, plateNo, additional, partner, answers } = FormSchema.parse(body);
-    console.log(name);
-    console.log(email);
-    console.log(phoneNo);
-    console.log(zipcode);
-    console.log(plateNo);
-    console.log(additional);
 
     // Check if user exists by email
     const existing = await sql`
