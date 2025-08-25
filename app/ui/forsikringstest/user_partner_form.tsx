@@ -162,7 +162,7 @@ export default function UserPartnerForm(props: {
                         </div>
                         {/* Additional field */}
                         <div>
-                            <label className="block text-sm font-medium">Øvrig info</label>
+                            <label className="block text-sm font-medium">Øvrig info (f.eks. har du erhvervsforsikring)</label>
                             <input
                                 name="additional"
                                 type="text"
@@ -181,7 +181,7 @@ export default function UserPartnerForm(props: {
 
                         <input className="w-4 h-4 mb-0" type="checkbox" name="checkbox-user-consent" checked={isChecked} onChange={checkHandler} />
                         <p className="text-xs font-sans">
-                            Jeg giver samtykke til, at mine oplysninger må behandles og videregives i forbindelse med sagsbehandling. Jeg er informeret om, at samtykket kan trækkes tilbage når som helst.
+                            Jeg giver samtykke til, at mine oplysninger må behandles og videregives i forbindelse med sagsbehandling. Jeg er informeret om, at samtykket kan trækkes tilbage når som helst ved at sende en mail til <b>info@carhype.dk</b>
                         </p>
 
                         <button
