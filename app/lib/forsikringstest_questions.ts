@@ -47,8 +47,8 @@ export const questions: Record<QuestionId, Question> = {
         type: 'question',
         question: 'Hvor længe har du været i dit nuværende forsikringsselskab?',
         options: [
-            { text: 'Under 9 måneder', next: 'whenChanged' },
             { text: 'Over 9 måneder', next: 'carInsurance' },
+            { text: 'Under 9 måneder', next: 'whenChanged' },
         ],
     },
     whenChanged: {
@@ -115,13 +115,13 @@ export const questions: Record<QuestionId, Question> = {
         type: 'questionTextInput',
         question: 'Hvilket forsikringsselskab har du i dag?',
         options: [
-            { text: 'IF', next: 'age1' },
-            { text: 'Topdanmark', next: 'age1' },
+            { text: 'IF, Topdanmark', next: 'age1' },
 
-            { text: 'Alm. brand', next: 'age2' },
+            { text: 'Alm. brand, Codan', next: 'age2' },
 
-            { text: 'Tryg', next: 'age3' },
-            { text: 'Forsia', next: 'age3' },
+            { text: 'TRYG, Alka, FDM', next: 'age3' },
+            { text: 'Forsia, Gjensidige', next: 'age3' },
+
         ],
         textInputOption: 'Øvrige',
         textInputNext: 'age3'
