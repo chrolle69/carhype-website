@@ -13,7 +13,7 @@ export default function ChoiceButton(props: ChoiceButtonProps) {
         <button
             key={props.idx}
             onClick={() => props.goToNext(props.option.text, props.option.next)}
-            className="w-full text-center p-4 bg-white rounded-lg border hover:bg-gray-100 transition"
+            className="w-full whitespace-pre-linegit text-center p-4 bg-white rounded-lg border hover:bg-gray-100 transition"
         >
             {props.option.text}
         </button>
