@@ -115,12 +115,25 @@ export const questions: Record<QuestionId, Question> = {
         type: 'questionTextInput',
         question: 'Hvilket forsikringsselskab har du i dag?',
         options: [
-            { text: 'IF, Topdanmark', next: 'age1' },
+            {
+                text: `IF
+                Topdanmark`, next: 'age1'
+            },
 
-            { text: 'Alm. brand, Codan', next: 'age2' },
+            {
+                text: `Alm. brand
+                 Codan`, next: 'age2'
+            },
 
-            { text: 'TRYG, Alka, FDM', next: 'age3' },
-            { text: 'Forsia, Gjensidige', next: 'age3' },
+            {
+                text: `TRYG
+                Alka
+                FDM`, next: 'age3'
+            },
+            {
+                text: `Forsia
+                Gjensidige`, next: 'age3'
+            },
 
         ],
         textInputOption: 'Øvrige',
