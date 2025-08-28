@@ -29,8 +29,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {children}
-        <Analytics />
-
+        <Analytics />   {/* analytics for vercel */}
       </body>
     </html>
   );
