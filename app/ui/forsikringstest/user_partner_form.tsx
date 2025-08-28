@@ -113,6 +113,9 @@ export default function UserPartnerForm(props: {
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                pattern="^(?!\.)(?!.*\.\.)([A-Za-z0-9_'+\-\.]*)[A-Za-z0-9_+\-]@([A-Za-z0-9][A-Za-z0-9\-]*\.)+[A-Za-z]{2,}$"
+                                title="Indtast en gyldig Email (example@mail.com)"
+
                                 required
                                 disabled={isLoading}
                                 className="w-full p-2 border rounded bg-white"
@@ -125,6 +128,8 @@ export default function UserPartnerForm(props: {
                                 name="phoneNo"
                                 type="tel"
                                 value={phoneNo}
+                                pattern="\d{8,14}"
+                                title="Indtast et gyldigt telefonnummer (8-14 cifre)"
                                 onChange={(e) => setPhoneNo(e.target.value)}
                                 required
                                 disabled={isLoading}
@@ -140,7 +145,7 @@ export default function UserPartnerForm(props: {
                                 autoComplete="zipcode"
                                 onChange={(e) => setZipcode(e.target.value)}
                                 value={zipcode}
-                                pattern="\d{4}$"
+                                pattern="^$|^\d{4}$"
                                 title="Indtast et gyldigt 4-cifret dansk postnummer"
                                 disabled={isLoading}
                                 className="w-full p-2 border rounded bg-white"
