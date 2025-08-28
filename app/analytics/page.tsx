@@ -13,7 +13,7 @@ export default function AnalyticsPage() {
             if (res.status !== 200) setError(json.error || "Unauthorized");
             else setData(json);
         } catch (err) {
-            setError(`Error fetching analytics: ${err}`);
+            setError(`Error fetching analytics: ${(err as Error).message}`);
         }
     };
 
