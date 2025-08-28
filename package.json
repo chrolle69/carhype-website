@@ -21,15 +21,9 @@
     "@radix-ui/react-slot": "^1.2.3",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-<<<<<<< HEAD
     "lucide-react": "^0.542.0",
     "framer-motion": "^12.23.12",
     "next": "15.5.2",
-=======
-    "lucide-react": "^0.540.0",
-    "framer-motion": "^12.23.12",
-    "next": "15.4.6",
->>>>>>> parent of 056eb59 (added analytics)
     "postgres": "^3.4.7",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
