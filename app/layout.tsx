@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next"
 import { Geist, Geist_Mono } from "next/font/google";
+import PlausibleProvider from 'next-plausible'
 import "./globals.css";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +30,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <PlausibleProvider domain="www.carhype.dk">
+          {children}
+        </PlausibleProvider>
+
         <Analytics />   {/* analytics for vercel */}
       </body>
     </html>

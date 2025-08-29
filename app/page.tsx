@@ -1,12 +1,10 @@
 import { FacebookIcon, YoutubeIcon, TiktokIcon, InstagramIcon } from './ui/home/socialicons';
 import Link from 'next/link';
-import PlausibleProvider from 'next-plausible'
 
 
 
 export default function Home() {
   return (
-    <PlausibleProvider domain="carhype.dk">
       <div className="flex flex-col min-h-screen p-8 pb-20 font-[family-name:var(--font-geist-sans)]">
         {/* Header */}
         <header className="flex justify-center text-[36px] sm:text-[56px] mb-12">
@@ -53,7 +51,6 @@ export default function Home() {
 
         </footer>
       </div>
-    </PlausibleProvider>
 
   );
 }
