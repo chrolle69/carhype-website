@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 export default function AnalyticsPage() {
-    const [data, setData] = useState<any>(null);
+    const [data, setData] = useState<string>("hello");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
