@@ -42,7 +42,7 @@ export default function QuestionCard(props: {
     }
 
     const handleChoice = (selectedText: string, nextId: QuestionId | null) => {
-        trackPlausible("Next step", { step: nextId });
+        trackPlausible(`Next step ${nextId}`);
 
         props.setAnswers(prev => ({
             ...prev, // keep previous answers
