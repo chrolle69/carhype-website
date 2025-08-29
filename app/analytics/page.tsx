@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 
 export default function AnalyticsPage() {
-    const [data, setData] = useState<any>(null);
+    const [data, setData] = useState<string>("hello");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
@@ -13,7 +13,7 @@ export default function AnalyticsPage() {
             if (res.status !== 200) setError(json.error || "Unauthorized");
             else setData(json);
         } catch (err) {
-            setError(`Error fetching analytics: ${err}`);
+            setError(`Error fetching analytics: ${(err as Error).message}`);
         }
     };
 
