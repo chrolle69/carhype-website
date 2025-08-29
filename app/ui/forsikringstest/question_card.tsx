@@ -2,6 +2,7 @@
 
 import React from "react";
 import { questions, QuestionId } from "@/app/lib/forsikringstest_questions";
+import { trackPlausible } from "@/app/lib/plausible"
 import {
     Card,
     CardContent,
@@ -41,6 +42,8 @@ export default function QuestionCard(props: {
     }
 
     const handleChoice = (selectedText: string, nextId: QuestionId | null) => {
+        trackPlausible("Next step", { step: nextId });
+
         props.setAnswers(prev => ({
             ...prev, // keep previous answers
             [currentQuestion.question!]: selectedText // overwrite/update current answer

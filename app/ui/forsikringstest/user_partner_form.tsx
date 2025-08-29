@@ -3,6 +3,7 @@
 import React from "react";
 import { useRouter } from "next/navigation";
 import { QuestionId } from "@/app/lib/forsikringstest_questions";
+import { trackPlausible } from "@/app/lib/plausible";
 
 export default function UserPartnerForm(props: {
     partner: QuestionId
@@ -22,6 +23,9 @@ export default function UserPartnerForm(props: {
     const checkHandler = () => {
         setIsChecked(!isChecked);
     }
+
+    trackPlausible("Formular opened");
+
 
     const router = useRouter();
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
