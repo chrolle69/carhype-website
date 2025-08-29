@@ -30,7 +30,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <PlausibleProvider domain="www.carhype.dk">
+        <PlausibleProvider domain="carhype.dk">
           {children}
         </PlausibleProvider>
 
