@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/card";
 import ChoiceButton from "./choice_button";
 import { useRouter } from "next/navigation";
+import next from "next";
 
 
 
@@ -44,6 +45,7 @@ export default function QuestionCard(props: {
     const handleChoice = (selectedText: string, nextId: QuestionId | null) => {
         trackPlausible(`Next step ${nextId}`);
 
+
         props.setAnswers(prev => ({
             ...prev, // keep previous answers
             [currentQuestion.question!]: selectedText // overwrite/update current answer
@@ -51,7 +53,14 @@ export default function QuestionCard(props: {
 
         setTextInput("");
         setShowTextField(false);
+
         if (nextId) {
+            if (nextId === "partnerL" || nextId === "partnerS") {
+                props.setPartner(nextId);
+                props.setIsDone(true);
+            }
+
+
             setHistory(prev => [...prev, nextId]);
             setCurrentQuestionId(nextId);
         }

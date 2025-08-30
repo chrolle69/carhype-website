@@ -34,9 +34,9 @@ function rateLimit(ip: string): boolean {
 
 const FormSchema = z.object({
   name: z.string(),
-  email: z.string().email(),
+  //email: z.string().optional,
   phoneNo: z.string().min(8).max(14),
-  zipcode: z.string().max(4).optional(),
+  //zipcode: z.string().max(4).optional(),
   plateNo: z.string().max(10).optional(),
   additional: z.string().max(500).optional(),
   partner: z.string().optional(),
@@ -60,11 +60,11 @@ export async function POST(request: NextRequest) {
 
     // 3) Parse + validate input
     const body = await request.json();
-    const { name, email, phoneNo, zipcode, plateNo, additional, partner, answers } =
+    const { name, phoneNo, plateNo, additional, partner, answers } =
       FormSchema.parse(body);
 
     // 4) DB logic
-    const existing = await sql`SELECT * FROM leads WHERE email = ${email}`;
+    const existing = await sql`SELECT * FROM leads WHERE phone = ${phoneNo}`;
     const answerJson = answers ? sql.json(answers) : null;
 
     if (existing.length === 0) {
@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
         INSERT INTO leads (
           lead_id, email, name, phone, zipcode, plate, additional, partner, answers, submitted_at
         ) VALUES (
-          ${uuidv4()}, ${email}, ${name}, ${phoneNo ?? null}, ${zipcode ?? null}, ${plateNo ?? null}, ${additional ?? null}, ${partner ?? null}, ${answerJson ?? null}, NOW()
+          ${uuidv4()}, ${null}, ${name}, ${phoneNo}, ${null}, ${plateNo ?? null}, ${additional ?? null}, ${partner ?? null}, ${answerJson ?? null}, NOW()
         )
       `;
     } else {
@@ -80,14 +80,15 @@ export async function POST(request: NextRequest) {
       await sql`
         UPDATE leads SET
           name = ${name},
+          email = ${null},
           phone = ${phoneNo ?? existingData.phone},
-          zipcode = ${zipcode ?? existingData.zipcode},
+          zipcode = ${null},
           plate = ${plateNo ?? existingData.plate},
           additional = ${additional ?? existingData.additional},
           partner = ${partner ?? existingData.partner},
           answers = ${answerJson ?? existingData.answers},
           submitted_at = NOW()
-        WHERE email = ${email}
+        WHERE phone = ${phoneNo}
       `;
     }
 

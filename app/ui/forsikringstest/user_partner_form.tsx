@@ -10,9 +10,9 @@ export default function UserPartnerForm(props: {
     answers: { [question: string]: string }
 }) {
     const [name, setName] = React.useState("");
-    const [email, setEmail] = React.useState("");
+    //const [email, setEmail] = React.useState("");
     const [phoneNo, setPhoneNo] = React.useState("");
-    const [zipcode, setZipcode] = React.useState("");
+    //const [zipcode, setZipcode] = React.useState("");
     const [plateNo, setPlateNo] = React.useState("");
     const [additional, setAdditional] = React.useState("");
     const [message, setMessage] = React.useState("");
@@ -42,9 +42,9 @@ export default function UserPartnerForm(props: {
         const formData = new FormData(e.currentTarget);
         const body = {
             name: formData.get("name"),
-            email: formData.get("email"),
+            //email: formData.get("email"),
             phoneNo: formData.get("phoneNo"),
-            zipcode: formData.get("zipcode"),
+            //zipcode: formData.get("zipcode"),
             plateNo: formData.get("plateNo"),
             additional: formData.get("additional"),
             partner: props.partner, // Include the partner information
@@ -109,8 +109,9 @@ export default function UserPartnerForm(props: {
                                 className="w-full p-2 border rounded bg-white"
                             />
                         </div>
+
                         {/* email field */}
-                        <div>
+                        {/* <div>
                             <label className="block text-sm font-medium">Email*</label>
                             <input
                                 name="email"
@@ -124,7 +125,8 @@ export default function UserPartnerForm(props: {
                                 disabled={isLoading}
                                 className="w-full p-2 border rounded bg-white"
                             />
-                        </div>
+                        </div> */}
+
                         {/* phoneNo field */}
                         <div>
                             <label className="block text-sm font-medium">Telefonnummer*</label>
@@ -140,8 +142,9 @@ export default function UserPartnerForm(props: {
                                 className="w-full p-2 border rounded bg-white"
                             />
                         </div>
+
                         {/* zipcode field */}
-                        <div>
+                        {/* <div>
                             <label className="block text-sm font-medium">Postnummer</label>
                             <input
                                 type="text"
@@ -154,7 +157,8 @@ export default function UserPartnerForm(props: {
                                 disabled={isLoading}
                                 className="w-full p-2 border rounded bg-white"
                             />
-                        </div>
+                        </div> */}
+
                         {/* plateNo field */}
                         <div>
                             <label className="block text-sm font-medium">Nummerplade</label>
