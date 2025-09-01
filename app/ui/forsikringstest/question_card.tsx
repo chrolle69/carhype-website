@@ -48,7 +48,7 @@ export default function QuestionCard(props: {
 
         props.setAnswers(prev => ({
             ...prev, // keep previous answers
-            [currentQuestion.question!]: selectedText // overwrite/update current answer
+            [currentQuestion.id!]: selectedText // overwrite/update current answer
         }));
 
         setTextInput("");
