@@ -1,4 +1,5 @@
 export type QuestionId =
+    | 'name'
     | 'rki'
     | 'duration'
     | 'whenChanged'
@@ -9,6 +10,8 @@ export type QuestionId =
     | 'importance'
     | 'currentInsurance'
     | 'age1' | 'age2' | 'age3'
+    | 'phoneS' | 'phoneL'
+    | 'additionalS' | 'additionalL'
     | 'partnerS'
     | 'partnerL'
     | 'declined'
@@ -21,7 +24,7 @@ export interface Option {
 
 export interface Question {
     id: QuestionId;
-    type: 'question' | 'questionTextInput' | 'result';
+    type: 'question' | 'questionTextInput' | 'result' | 'form';
     question?: string;            // present only for 'question' type
     options?: Option[];           // present only for 'question' type
     textInputOption?: string  // present only for 'questionTextInput' type
@@ -33,6 +36,12 @@ export interface Question {
 }
 
 export const questions: Record<QuestionId, Question> = {
+    name: {
+        id: 'name',
+        type: 'form',
+        question: 'Hvad er dit Navn?',
+        next: 'rki'
+    },
     rki: {
         id: 'rki',
         type: 'question',
@@ -64,12 +73,13 @@ export const questions: Record<QuestionId, Question> = {
 
     carInsurance: {
         id: 'carInsurance',
-        type: 'question',
+        type: 'questionTextInput',
         question: 'Har du en bilforsikring?',
         options: [
-            { text: 'Ja', next: 'livingCondition' },
             { text: 'Nej', next: 'livingCondition' },
         ],
+        textInputOption: 'Ja',
+        textInputNext: 'livingCondition'
     },
     livingCondition: {
         id: 'livingCondition',
@@ -167,6 +177,31 @@ export const questions: Record<QuestionId, Question> = {
             { text: '23+', next: 'partnerL' },
         ],
     },
+    phoneS: {
+        id: 'partnerL',
+        type: 'form',
+        question: 'Hvad er dit Telefonummer?',
+        next: 'additionalS'
+    },
+    phoneL: {
+        id: 'phoneL',
+        type: 'form',
+        question: 'Hvad er dit Telefonummer?',
+        next: 'additionalL'
+    },
+    additionalL: {
+        id: 'additionalL',
+        type: 'form',
+        question: 'Øvrig info (f.eks. har du erhvervsforsikring)',
+        next: null
+    },
+    additionalS: {
+        id: 'additionalS',
+        type: 'form',
+        question: 'Øvrig info (f.eks. har du erhvervsforsikring)',
+        next: null
+    },
+
 
 
     partnerS: {
