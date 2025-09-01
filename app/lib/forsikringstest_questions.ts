@@ -40,7 +40,7 @@ export const questions: Record<QuestionId, Question> = {
         id: 'name',
         type: 'form',
         question: 'Hvad er dit Navn?',
-        next: 'rki'
+        textInputNext: 'rki'
     },
     rki: {
         id: 'rki',
@@ -155,8 +155,8 @@ export const questions: Record<QuestionId, Question> = {
         type: 'question',
         question: 'Hvor gammel er du?',
         options: [
-            { text: '18-22', next: 'partnerS' },
-            { text: '23+', next: 'partnerS' },
+            { text: '18-22', next: 'phoneS' },
+            { text: '23+', next: 'phoneS' },
         ],
     },
     age2: {
@@ -164,8 +164,8 @@ export const questions: Record<QuestionId, Question> = {
         type: 'question',
         question: 'Hvor gammel er du?',
         options: [
-            { text: '18-22', next: 'partnerL' },
-            { text: '23+', next: 'partnerL' },
+            { text: '18-22', next: 'phoneL' },
+            { text: '23+', next: 'phoneL' },
         ],
     },
     age3: {
@@ -173,33 +173,33 @@ export const questions: Record<QuestionId, Question> = {
         type: 'question',
         question: 'Hvor gammel er du?',
         options: [
-            { text: '18-22', next: 'partnerS' },
-            { text: '23+', next: 'partnerL' },
+            { text: '18-22', next: 'phoneS' },
+            { text: '23+', next: 'phoneL' },
         ],
     },
     phoneS: {
-        id: 'partnerL',
+        id: 'phoneS',
         type: 'form',
-        question: 'Hvad er dit Telefonummer?',
-        next: 'additionalS'
+        question: 'Hvad er dit Telefonnummer?',
+        textInputNext: 'additionalS'
     },
     phoneL: {
         id: 'phoneL',
         type: 'form',
-        question: 'Hvad er dit Telefonummer?',
-        next: 'additionalL'
-    },
-    additionalL: {
-        id: 'additionalL',
-        type: 'form',
-        question: 'Øvrig info (f.eks. har du erhvervsforsikring)',
-        next: null
+        question: 'Hvad er dit Telefonnummer?',
+        textInputNext: 'additionalL'
     },
     additionalS: {
         id: 'additionalS',
         type: 'form',
         question: 'Øvrig info (f.eks. har du erhvervsforsikring)',
-        next: null
+        textInputNext: 'partnerS'
+    },
+    additionalL: {
+        id: 'additionalL',
+        type: 'form',
+        question: 'Øvrig info (f.eks. har du erhvervsforsikring)',
+        textInputNext: 'partnerL'
     },
 
 
