@@ -5,29 +5,37 @@ import { questions, QuestionId } from "@/app/lib/forsikringstest_questions";
 import { trackPlausible } from "@/app/lib/plausible"
 import {
     Card,
-    CardContent,
-    CardFooter,
-    CardHeader,
-    CardTitle,
 } from "@/components/ui/card";
-import ChoiceButton from "./choice_button";
+import UiResult from "./ui_result";
+import UiQuestionTextInput from "./ui_questionTextInput";
+import UiQuestion from "./ui_question";
+import UiForm from "./ui_form";
 import { useRouter } from "next/navigation";
-import next from "next";
 
 
 
-export default function QuestionCard(props: {
-    setIsDone: (done: boolean) => void,
-    setPartner: (id: QuestionId) => void,
-    setAnswers: React.Dispatch<React.SetStateAction<{ [question: string]: string }>>
-}) {
 
+export default function QuestionCard() {
+
+    const [name, setName] = React.useState<string>("");
+    const [phone, setPhone] = React.useState<string>("");
+    const [additional, setAdditional] = React.useState<string>("");
     const [showTextField, setShowTextField] = React.useState<boolean>(false);
     const [textInput, setTextInput] = React.useState<string>("");
-    const [currentQuestionId, setCurrentQuestionId] = React.useState<QuestionId>('rki');
+    const [currentQuestionId, setCurrentQuestionId] = React.useState<QuestionId>('name');
     const currentQuestion = questions[currentQuestionId];
-    const [history, setHistory] = React.useState<QuestionId[]>(['rki']);
+    const [history, setHistory] = React.useState<QuestionId[]>(['name']);
+    const [answers, setAnswers] = React.useState<{ [question: string]: string }>({});
+
+
+
+    const [isLoading, setIsLoading] = React.useState(false);
+    const [isSubmitted, setIsSubmitted] = React.useState(false);
+    const [error, setError] = React.useState("");
+    const [message, setMessage] = React.useState("");
+
     const router = useRouter();
+
 
     const style = showTextField ? 'w-full text-center text-white p-4 bg-black rounded-lg border hover:bg-gray-600 transition' : 'w-full text-center p-4 bg-white rounded-lg border hover:bg-gray-100 transition'
 
@@ -46,20 +54,15 @@ export default function QuestionCard(props: {
         trackPlausible(`Next step ${nextId}`);
 
 
-        props.setAnswers(prev => ({
+        setAnswers(prev => ({
             ...prev, // keep previous answers
-            [currentQuestion.question!]: selectedText // overwrite/update current answer
+            [currentQuestion.id!]: selectedText // overwrite/update current answer
         }));
 
         setTextInput("");
         setShowTextField(false);
 
         if (nextId) {
-            if (nextId === "partnerL" || nextId === "partnerS") {
-                props.setPartner(nextId);
-                props.setIsDone(true);
-            }
-
 
             setHistory(prev => [...prev, nextId]);
             setCurrentQuestionId(nextId);
@@ -67,102 +70,77 @@ export default function QuestionCard(props: {
     };
 
 
+    const handleFormStep = (nextId: QuestionId | null) => {
+        trackPlausible(`Next step ${nextId}`);
+        if (nextId) {
+            setHistory(prev => [...prev, nextId]);
+            setCurrentQuestionId(nextId);
+        }
+    }
 
+    const sendData = async (nextId: QuestionId | null) => {
+        setError("");
+        setMessage("");
+        setIsLoading(true);
 
+        const body = {
+            name,
+            phoneNo: phone,
+            additional,
+            partner: nextId,
+            answers: answers
+        };
+
+        try {
+            const res = await fetch("/api/createLead", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body),
+            });
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+                setIsSubmitted(true);
+                setMessage("Du er nu oprettet og vil blive kontaktet med et tilbud indenfor 24 timer!");
+            } else {
+                setError(data.message || "Noget gik galt, prøv igen senere.");
+            }
+        } catch (err) {
+            console.error(err);
+            setError("Der skete en fejl ved tilmelding.");
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return (
         <Card className="w-full w-9/10 md:max-w-3xl mx-auto my-8 shadow-lg bg-orange-50">
-            {currentQuestion.type === 'result' ?
-                <div className="flex flex-col gap-5 p-4">
-                    <CardHeader className="text-center">
-                        <CardTitle className="text-2xl font-bold">{currentQuestion.title}</CardTitle>
-                    </CardHeader>
-                    <CardContent className="text-center">
-                        <p>{currentQuestion.message}</p>
-                    </CardContent>
-                    <CardFooter className="flex justify-center">
-                        {currentQuestion.id === "declined" ?
-                            <button
-                                className="rounded-xl bg-black text-white px-4 py-2"
-                                onClick={() => router.push("/")}
-                            >
-                                {currentQuestion.buttonText || "Færdig"}
-                            </button>
-                            :
-                            <button
-                                onClick={() => {
-                                    props.setPartner(currentQuestionId);
-                                    props.setIsDone(true);
-                                }}
-                                className="rounded-xl bg-black text-white px-4 py-2"
-                            >
-                                {currentQuestion.buttonText || "Færdig"}
-                            </button>
-                        }
-                    </CardFooter>
+            {isSubmitted ? (
+                <div className="flex flex-col items-center justify-center p-4 gap-4">
+                    <h2 className="text-xl font-bold text-center">{error ? "Fejl" : "Succes!"}</h2>
+                    <p className="text-center">{error || message}</p>
+                    {!error && (
+                        <button
+                            className="rounded-xl bg-black hover:bg-gray-600 text-white px-4 py-2"
+                            onClick={() => router.push("/")}
+                        >
+                            Færdig
+                        </button>
+                    )}
                 </div>
-                :
-                <div className="flex flex-col md:flex-row md:gap-6 p-4 min-h-[100px] justify-center">
-                    <div className="w-full md:w-4/5 flex flex-col justify-center ">
-                        <CardHeader className="m-4 p-0">
-                            <CardTitle className="leading-5 font-sans">{currentQuestion.question}</CardTitle>
-                        </CardHeader>
-
-                        <CardContent className="p-0">
-                            <div className="flex flex-col gap-2">
-                                {currentQuestion.options?.map((option, idx) => (
-                                    <ChoiceButton
-                                        option={option}
-                                        key={idx}
-                                        idx={idx}
-                                        goToNext={handleChoice}
-                                    />
-                                ))}
-
-
-                                {currentQuestion.type === "questionTextInput" && (
-                                    <>
-                                        <button
-                                            key={0}
-                                            onClick={() => setShowTextField(!showTextField)}
-                                            className={style}
-                                        >
-                                            {currentQuestion.textInputOption}
-                                        </button>
-                                        {showTextField && (
-                                            <input
-                                                required
-                                                name="myInput"
-                                                placeholder="Uddyb..."
-                                                onChange={e => setTextInput(e.target.value)}
-                                                className="invalid:border-red-800 w-10/11 self-center h-7 bg-white border-1 border-gray-400 p-5 "
-                                            />
-                                        )}
-                                    </>
-                                )}
-                            </div>
-                        </CardContent>
-                        <CardFooter className="flex justify-between items-end mt-8">
-                            {history.length > 1 &&
-                                <button className="rounded-xl bg-gray-200 hover:bg-gray-300 text-black px-4 py-2" onClick={goBack}>
-                                    tilbage
-                                </button>
-                            }
-                            {showTextField &&
-                                <button
-                                    disabled={!textInput.length}
-                                    className={"disabled:bg-gray-500 rounded-xl bg-black hover:bg-gray-600 text-white px-4 py-2"}
-                                    onClick={() => handleChoice(textInput, currentQuestion.textInputNext!)}
-                                >
-                                    bekræft
-                                </button>
-                            }
-
-                        </CardFooter>
-                    </div>
-                </div>
+            ) : (
+                currentQuestion.type === 'result' ? (
+                    UiResult({ currentQuestion })
+                ) : currentQuestion.type === 'questionTextInput' ? (
+                    UiQuestionTextInput(currentQuestion, handleChoice, setShowTextField, showTextField, style, setTextInput, history, goBack, textInput)
+                ) : currentQuestion.type === 'question' ? (
+                    UiQuestion(currentQuestion, handleChoice, history, goBack)
+                ) : currentQuestion.type === 'form' && (
+                    UiForm(currentQuestion, name, setName, history, goBack, handleFormStep, phone, setPhone, additional, setAdditional, isLoading, sendData, error, message)
+                )
+            )
             }
-        </Card>
+        </Card >
 
     );
 }
