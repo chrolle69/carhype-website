@@ -101,7 +101,7 @@ export default function QuestionCard() {
 
             if (res.ok && data.success) {
                 setIsSubmitted(true);
-                setMessage(data.message || "Du er nu oprettet og vil blive kontaktet snarest!");
+                setMessage("Du er nu oprettet og vil blive kontaktet med et tilbud indenfor 24 timer!");
             } else {
                 setError(data.message || "Noget gik galt, prøv igen senere.");
             }
