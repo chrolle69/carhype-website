@@ -41,6 +41,8 @@ export default function QuestionCard() {
     const style = showTextField ? 'w-full text-center text-white p-4 bg-black rounded-lg border hover:bg-gray-600 transition' : 'w-full text-center p-4 bg-white rounded-lg border hover:bg-gray-100 transition'
 
     const plausibleCheck = (nextId: QuestionId | null) => {
+        if (!nextId) return; // don’t track anything if null
+
         const groupMap: Record<string, string> = {
             partnerS: "partner",
             partnerL: "partner",
@@ -53,7 +55,7 @@ export default function QuestionCard() {
             phoneL: "phone",
         };
 
-        const group = groupMap[nextId!] || nextId;
+        const group = groupMap[nextId] || nextId;
         trackPlausible(`Next step ${group}`);
     };
 
