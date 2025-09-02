@@ -12,8 +12,7 @@ export type QuestionId =
     | 'age1' | 'age2' | 'age3'
     | 'phoneS' | 'phoneL'
     | 'additionalS' | 'additionalL'
-    | 'partnerS'
-    | 'partnerL'
+    | 'partnerS' | 'partnerL'
     | 'declined'
     | 'checkup';
 
