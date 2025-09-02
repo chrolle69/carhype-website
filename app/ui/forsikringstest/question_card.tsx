@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 export default function QuestionCard() {
 
     const [name, setName] = React.useState<string>("");
+    const [plate, setPlate] = React.useState<string>("");
     const [phone, setPhone] = React.useState<string>("");
     const [additional, setAdditional] = React.useState<string>("");
     const [showTextField, setShowTextField] = React.useState<boolean>(false);
@@ -39,6 +40,27 @@ export default function QuestionCard() {
 
     const style = showTextField ? 'w-full text-center text-white p-4 bg-black rounded-lg border hover:bg-gray-600 transition' : 'w-full text-center p-4 bg-white rounded-lg border hover:bg-gray-100 transition'
 
+    const plausibleCheck = (nextId: QuestionId | null) => {
+        if (nextId?.startsWith("partner")) {
+            trackPlausible(`Next step partner`);
+            return;
+        }
+        if (nextId?.startsWith("age")) {
+            trackPlausible(`Next step age`);
+            return;
+        }
+        if (nextId?.startsWith("additional")) {
+            trackPlausible(`Next step additional`);
+            return;
+        }
+        if (nextId?.startsWith("phone")) {
+            trackPlausible(`Next step phone`);
+            return;
+        }
+        trackPlausible(`Next step ${nextId}`);
+    }
+
+
     const goBack = () => {
         if (history.length > 1) {
             const newHistory = [...history];
@@ -51,9 +73,7 @@ export default function QuestionCard() {
     }
 
     const handleChoice = (selectedText: string, nextId: QuestionId | null) => {
-        trackPlausible(`Next step ${nextId}`);
-
-
+        plausibleCheck(nextId);
         setAnswers(prev => ({
             ...prev, // keep previous answers
             [currentQuestion.id!]: selectedText // overwrite/update current answer
@@ -63,15 +83,24 @@ export default function QuestionCard() {
         setShowTextField(false);
 
         if (nextId) {
-
             setHistory(prev => [...prev, nextId]);
             setCurrentQuestionId(nextId);
         }
     };
 
-
     const handleFormStep = (nextId: QuestionId | null) => {
-        trackPlausible(`Next step ${nextId}`);
+        plausibleCheck(nextId);
+        if (currentQuestion.id === "carInsurance" && plate) {
+            setAnswers(prev => ({
+                ...prev, // keep previous answers
+                [currentQuestion.id!]: plate
+            }));
+        } else if (currentQuestion.id === "carInsurance" && !plate) {
+            setAnswers(prev => ({
+                ...prev, // keep previous answers
+                [currentQuestion.id!]: "nej"
+            }));
+        }
         if (nextId) {
             setHistory(prev => [...prev, nextId]);
             setCurrentQuestionId(nextId);
@@ -79,12 +108,14 @@ export default function QuestionCard() {
     }
 
     const sendData = async (nextId: QuestionId | null) => {
+        trackPlausible(`data sent`);
         setError("");
         setMessage("");
         setIsLoading(true);
 
         const body = {
             name,
+            plateNo: plate,
             phoneNo: phone,
             additional,
             partner: nextId,
@@ -132,7 +163,7 @@ export default function QuestionCard() {
                 currentQuestion.type === 'result' ? (
                     UiResult({ currentQuestion })
                 ) : currentQuestion.type === 'questionTextInput' ? (
-                    UiQuestionTextInput(currentQuestion, handleChoice, setShowTextField, showTextField, style, setTextInput, history, goBack, textInput)
+                    UiQuestionTextInput(currentQuestion, handleChoice, setShowTextField, showTextField, style, setTextInput, history, goBack, textInput, setPlate, plate, handleFormStep)
                 ) : currentQuestion.type === 'question' ? (
                     UiQuestion(currentQuestion, handleChoice, history, goBack)
                 ) : currentQuestion.type === 'form' && (
