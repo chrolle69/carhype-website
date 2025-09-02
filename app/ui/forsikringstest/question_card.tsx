@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 export default function QuestionCard() {
 
     const [name, setName] = React.useState<string>("");
+    const [plate, setPlate] = React.useState<string>("");
     const [phone, setPhone] = React.useState<string>("");
     const [additional, setAdditional] = React.useState<string>("");
     const [showTextField, setShowTextField] = React.useState<boolean>(false);
@@ -89,7 +90,17 @@ export default function QuestionCard() {
 
     const handleFormStep = (nextId: QuestionId | null) => {
         plausibleCheck(nextId);
-
+        if (currentQuestion.id === "carInsurance" && plate) {
+            setAnswers(prev => ({
+                ...prev, // keep previous answers
+                [currentQuestion.id!]: plate
+            }));
+        } else if (currentQuestion.id === "carInsurance" && !plate) {
+            setAnswers(prev => ({
+                ...prev, // keep previous answers
+                [currentQuestion.id!]: "nej"
+            }));
+        }
         if (nextId) {
             setHistory(prev => [...prev, nextId]);
             setCurrentQuestionId(nextId);
@@ -104,6 +115,7 @@ export default function QuestionCard() {
 
         const body = {
             name,
+            plateNo: plate,
             phoneNo: phone,
             additional,
             partner: nextId,
@@ -151,7 +163,7 @@ export default function QuestionCard() {
                 currentQuestion.type === 'result' ? (
                     UiResult({ currentQuestion })
                 ) : currentQuestion.type === 'questionTextInput' ? (
-                    UiQuestionTextInput(currentQuestion, handleChoice, setShowTextField, showTextField, style, setTextInput, history, goBack, textInput)
+                    UiQuestionTextInput(currentQuestion, handleChoice, setShowTextField, showTextField, style, setTextInput, history, goBack, textInput, setPlate, plate, handleFormStep)
                 ) : currentQuestion.type === 'question' ? (
                     UiQuestion(currentQuestion, handleChoice, history, goBack)
                 ) : currentQuestion.type === 'form' && (

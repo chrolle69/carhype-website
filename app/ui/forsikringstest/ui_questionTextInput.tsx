@@ -2,7 +2,7 @@ import { CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/
 import ChoiceButton from "./choice_button";
 import { Question, QuestionId } from "@/app/lib/forsikringstest_questions";
 
-export default function UiQuestionTextInput(currentQuestion: Question, handleChoice: (selectedText: string, nextId: QuestionId | null) => void, setShowTextField: React.Dispatch<React.SetStateAction<boolean>>, showTextField: boolean, style: string, setTextInput: React.Dispatch<React.SetStateAction<string>>, history: QuestionId[], goBack: () => void, textInput: string): React.ReactNode {
+export default function UiQuestionTextInput(currentQuestion: Question, handleChoice: (selectedText: string, nextId: QuestionId | null) => void, setShowTextField: React.Dispatch<React.SetStateAction<boolean>>, showTextField: boolean, style: string, setTextInput: React.Dispatch<React.SetStateAction<string>>, history: QuestionId[], goBack: () => void, textInput: string, setPlate: React.Dispatch<React.SetStateAction<string>>, plate: string, handleFormStep: (nextId: QuestionId | null) => void): React.ReactNode {
     return <div className="flex flex-col md:flex-row md:gap-6 p-4 min-h-[100px] justify-center">
         <div className="w-full md:w-4/5 flex flex-col justify-center ">
             <CardHeader className="m-4 p-0">
@@ -33,7 +33,7 @@ export default function UiQuestionTextInput(currentQuestion: Question, handleCho
                                         required
                                         name="nummerplade"
                                         placeholder="Nummerplade"
-                                        onChange={e => setTextInput(e.target.value)}
+                                        onChange={e => setPlate(e.target.value)}
                                         className="invalid:border-red-800 w-10/11 self-center h-7 bg-white border-1 border-gray-400 p-5 " />
                                 ) :
                                 (
@@ -54,13 +54,24 @@ export default function UiQuestionTextInput(currentQuestion: Question, handleCho
                         tilbage
                     </button>}
                 {showTextField &&
+                    currentQuestion.id === "carInsurance" ?
+                    <button
+                        disabled={!plate.length}
+                        className={"disabled:bg-gray-500 rounded-xl bg-black hover:bg-gray-600 text-white px-4 py-2"}
+                        onClick={() => handleFormStep(currentQuestion.textInputNext!)}
+                    >
+                        bekræft
+                    </button>
+                    :
                     <button
                         disabled={!textInput.length}
                         className={"disabled:bg-gray-500 rounded-xl bg-black hover:bg-gray-600 text-white px-4 py-2"}
                         onClick={() => handleChoice(textInput, currentQuestion.textInputNext!)}
                     >
                         bekræft
-                    </button>}
+                    </button>
+                }
+
 
             </CardFooter>
         </div>
