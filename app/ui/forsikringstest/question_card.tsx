@@ -41,21 +41,22 @@ export default function QuestionCard() {
     const style = showTextField ? 'w-full text-center text-white p-4 bg-black rounded-lg border hover:bg-gray-600 transition' : 'w-full text-center p-4 bg-white rounded-lg border hover:bg-gray-100 transition'
 
     const plausibleCheck = (nextId: QuestionId | null) => {
-        if (!nextId) return; // don’t track anything if null
+        if (!nextId) return;
 
-        const groupMap: Record<string, string> = {
-            partnerS: "partner",
-            partnerL: "partner",
-            age1: "age",
-            age2: "age",
-            age3: "age",
-            additionalS: "additional",
-            additionalL: "additional",
-            phoneS: "phone",
-            phoneL: "phone",
-        };
+        let group: string;
 
-        const group = groupMap[nextId] || nextId;
+        if (nextId.startsWith("partner")) {
+            group = "partner";
+        } else if (nextId.startsWith("age")) {
+            group = "age";
+        } else if (nextId.startsWith("additional")) {
+            group = "additional";
+        } else if (nextId.startsWith("phone")) {
+            group = "phone";
+        } else {
+            group = nextId;
+        }
+
         trackPlausible(`Next step ${group}`);
     };
 
